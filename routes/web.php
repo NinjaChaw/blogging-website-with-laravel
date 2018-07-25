@@ -11,8 +11,26 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//Frontendcontroller
+Route::get('/', ['as'=>'index', 'uses'=>'FrontEndController@index']);
+
+Route::get('/post/{slug}', ['as'=>'post.single', 'uses'=>'FrontEndController@singlePost']);
+
+Route::get('/category/{id}', ['as'=>'category.single', 'uses'=>'FrontEndController@category']);
+
+Route::get('/tag/{id}', ['as'=>'tag.single', 'uses'=>'FrontEndController@tag']);
+
+//Search clouser route
+Route::get('/results', function() {
+
+    $posts = \App\Post::where('title', 'like', '%'.request('query').'%')->get();
+
+    return view('results')
+        ->with('posts', $posts)
+        ->with('category', \App\Category::take(5)->get())
+        ->with('title', 'Search result: '.request('query'))
+        ->with('settings', \App\Setting::first())
+        ->with('query', request('query'));
 });
 
 //Log in routs
@@ -88,5 +106,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/user/profile', ['as'=>'user.profile', 'uses'=>'ProfilesController@index']);
 
     Route::post('/user/profile/update', ['as'=>'user.profile.update', 'uses'=>'ProfilesController@update']);
+
+    //settings route controller
+    Route::get('/settings', ['as'=>'settings', 'uses'=>'SettingsController@index']);
+
+    Route::post('/setting/update', ['as'=>'setting.update', 'uses'=>'SettingsController@update']);
+
 
 });

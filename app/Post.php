@@ -36,4 +36,9 @@ class Post extends Model
 
         return $this->belongsToMany('App\Tag');
     }
+
+    public function user() {
+
+        return $this->hasOne('App\User');
+    }
 }
