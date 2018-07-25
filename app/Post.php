@@ -15,7 +15,8 @@ class Post extends Model
         'content',
         'featured',
         'category_id',
-        'slug'
+        'slug',
+        'user_id'
 
     ];
 
@@ -39,6 +40,6 @@ class Post extends Model
 
     public function user() {
 
-        return $this->hasOne('App\User');
+        return $this->belongsTo('App\User');
     }
 }

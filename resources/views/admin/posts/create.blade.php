@@ -70,8 +70,6 @@
 
 @endsection
 
-
-
 @section('scripts')
 
     <!-- summernote js -->

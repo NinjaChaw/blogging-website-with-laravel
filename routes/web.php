@@ -20,6 +20,8 @@ Route::get('/category/{id}', ['as'=>'category.single', 'uses'=>'FrontEndControll
 
 Route::get('/tag/{id}', ['as'=>'tag.single', 'uses'=>'FrontEndController@tag']);
 
+
+
 //Search clouser route
 Route::get('/results', function() {
 
@@ -33,8 +35,11 @@ Route::get('/results', function() {
         ->with('query', request('query'));
 });
 
+
+
 //Log in routs
 Auth::routes();
+
 
 
 
@@ -42,7 +47,7 @@ Auth::routes();
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     //Login route controllers
-    Route::get('/home', ['as'=>'home', 'uses'=>'HomeController@index']);
+    Route::get('/dashboard', ['as'=>'home', 'uses'=>'HomeController@index']);
 
     //Posts route controllers
     Route::get('/post/create', ['as'=>'post.create', 'uses'=>'PostsController@create']);
